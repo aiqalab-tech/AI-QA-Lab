@@ -1,10 +1,8 @@
-# AI QA Lab - Step 1
-# Read user story from file
+from src.user_story_reader import read_user_story
 
 file_path = "data/login_story.txt"
 
-with open(file_path, "r") as file:
-    user_story = file.read()
+user_story = read_user_story(file_path)
 
 print("AI QA Lab - Input User Story")
 print("------------------------------")
