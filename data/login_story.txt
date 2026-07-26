@@ -1,0 +1,5 @@
+As a customer,
+
+I want to log in to the banking application
+
+So that I can view my account details.
