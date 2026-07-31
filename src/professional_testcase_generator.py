@@ -1,4 +1,6 @@
 from src.test_step_generator import generate_test_steps
+from src.test_data_generator import generate_test_data
+from src.expected_result_generator import generate_expected_result
 
 def generate_professional_test_cases(feature, scenarios):
 
@@ -29,6 +31,9 @@ def generate_professional_test_cases(feature, scenarios):
     for scenario in scenarios:
 
         steps = generate_test_steps(feature, scenario["type"])
+        test_information = generate_test_data(feature, scenario["type"])
+        expected_results = generate_expected_result(feature,scenario["type"]
+        )
 
         test_case = {
 
@@ -46,15 +51,13 @@ def generate_professional_test_cases(feature, scenarios):
 
             "automation_status": "Candidate",
 
-            "preconditions": [
-                "Application is available",
-                "User account exists"
-            ],
+            "preconditions": test_information["preconditions"],
+
+            "test_data": test_information["test_data"],
 
             "test_steps": steps,
 
-            "expected_result":
-                "System should behave as expected"
+            "expected_result":expected_results
 
         }
 

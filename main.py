@@ -41,7 +41,6 @@ def main():
 
     # Step 3: Generate Scenarios
     scenarios = generate_scenarios(feature)
-
     print("\nGenerated Scenarios")
     print("------------------------------")
 
