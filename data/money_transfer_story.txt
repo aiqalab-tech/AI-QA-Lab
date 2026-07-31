@@ -1,0 +1,5 @@
+As a customer,
+
+I want to transfer money to another bank account
+
+So that I can send money to beneficiaries.

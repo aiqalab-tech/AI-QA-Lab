@@ -1,5 +1,10 @@
 def format_test_case(test_case):
 
+    test_steps = ""
+
+    for index, step in enumerate(test_case["test_steps"], start=1):
+        test_steps += f"{index}. {step}\n"
+
     formatted_output = f"""
 =====================================
           TEST CASE REPORT
@@ -25,6 +30,9 @@ Test Type:
 
 Automation Status:
 {test_case['automation_status']}
+
+Test Steps:
+{test_steps}
 
 =====================================
 """

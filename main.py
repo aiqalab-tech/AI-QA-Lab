@@ -1,5 +1,8 @@
+from pyexpat import features
+
 from src.user_story_reader import read_user_story
 from src.requirement_analyzer import analyze_requirement
+from src.requirement_classifier import classify_requirements
 from src.scenario_generator import generate_scenarios
 from src.professional_testcase_generator import generate_professional_test_cases
 from src.test_case_formatter import format_test_case
@@ -7,19 +10,37 @@ from src.test_case_formatter import format_test_case
 
 def main():
 
-    file_path = "data/login_story.txt"
-
     print("AI QA Lab - Input User Story")
     print("------------------------------")
 
     # Step 1: Read User Story
-    story = read_user_story(file_path)
+    #story = read_user_story("data/login_story.txt")
+    print("\nPlease enter your user story")
+    print("------------------------------")
+    print("1. Login")
+    print("2. Money Transfer")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        user_story = read_user_story("data/login_story.txt")
+    elif choice == "2":
+        user_story = read_user_story("data/money_transfer_story.txt")
+    else:
+        print("Invalid choice")
+        return
 
     # Step 2: Analyze Requirement
-    requirement = analyze_requirement(story)
+    requirement = analyze_requirement(user_story)
+
+    feature = classify_requirements(requirement)
+
+    print("\nDetected Feature")
+    print("------------------------------")
+    print(feature)
 
     # Step 3: Generate Scenarios
-    scenarios = generate_scenarios(requirement)
+    scenarios = generate_scenarios(feature)
 
     print("\nGenerated Scenarios")
     print("------------------------------")
@@ -28,7 +49,7 @@ def main():
         print(scenario)
 
     # Step 4: Generate Professional Test Cases
-    professional_test_cases = generate_professional_test_cases(scenarios)
+    professional_test_cases = generate_professional_test_cases(feature, scenarios)
 
     print("\nProfessional Test Case Report")
     print("------------------------------")
