@@ -1,11 +1,10 @@
-from pyexpat import features
-
-from src.user_story_reader import read_user_story
+from src.readers.user_story_reader import read_user_story
 from src.requirement_analyzer import analyze_requirement
-from src.requirement_classifier import classify_requirements
-from src.scenario_generator import generate_scenarios
-from src.professional_testcase_generator import generate_professional_test_cases
-from src.test_case_formatter import format_test_case
+from src.classifiers.requirement_classifier import classify_requirements
+from src.generators.scenario_generator import generate_scenarios
+from src.generators.professional_testcase_generator import generate_professional_test_cases
+from src.formatters.test_case_formatter import format_test_case
+from src.generators.feature_file_generator import (generate_feature_file, save_feature_file)
 
 
 def main():
@@ -57,6 +56,13 @@ def main():
         report = format_test_case(test_case)
         print(report)
 
+    # -----------------------------------------
+    # Generate Feature File
+    # -----------------------------------------
+    feature_text = generate_feature_file(feature,scenarios)
+    save_feature_file(feature, feature_text)
+
+    print("BDD Feature File generated successfully.")
 
 if __name__ == "__main__":
     main()

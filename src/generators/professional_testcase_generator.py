@@ -1,6 +1,6 @@
-from src.test_step_generator import generate_test_steps
-from src.test_data_generator import generate_test_data
-from src.expected_result_generator import generate_expected_result
+from src.generators.test_step_generator import generate_test_steps
+from src.generators.test_data_generator import generate_test_data
+from src.generators.expected_result_generator import generate_expected_result
 
 def generate_professional_test_cases(feature, scenarios):
 
