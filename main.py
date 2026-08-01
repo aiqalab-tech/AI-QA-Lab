@@ -1,3 +1,5 @@
+import os
+
 from src.readers.user_story_reader import read_user_story
 from src.requirement_analyzer import analyze_requirement
 from src.classifiers.requirement_classifier import classify_requirements
@@ -5,9 +7,21 @@ from src.generators.scenario_generator import generate_scenarios
 from src.generators.professional_testcase_generator import generate_professional_test_cases
 from src.formatters.test_case_formatter import format_test_case
 from src.generators.feature_file_generator import (generate_feature_file, save_feature_file)
+from src.generators.playwright_generator import generate_page_object
+from src.generators.playwright_test_generator import generate_test_file
 
 
 def main():
+
+    os.makedirs(
+        "automation/playwright/pages",
+        exist_ok=True
+    )
+
+    os.makedirs(
+        "automation/playwright/tests",
+        exist_ok=True
+    )
 
     print("AI QA Lab - Input User Story")
     print("------------------------------")
@@ -63,6 +77,33 @@ def main():
     save_feature_file(feature, feature_text)
 
     print("BDD Feature File generated successfully.")
+
+    # -----------------------------------------
+    # Generate Playwright Automation Assets
+    # -----------------------------------------
+    print("\nGenerating Playwright Automation Assets...")
+
+    page_object_code = generate_page_object(feature)
+    test_code = generate_test_file(feature)
+
+    page_file = (
+        f"automation/playwright/pages/"
+        f"{feature.lower().replace(' ','_')}_page.py"
+    )
+
+    test_file = (
+        f"automation/playwright/tests/"
+        f"test_{feature.lower().replace(' ','_')}.py"
+    )
+
+    with open(page_file, "w") as file:
+        file.write(page_object_code)
+
+
+    with open(test_file, "w") as file:
+        file.write(test_code)
+
+    print("Playwright files generated successfully.")
 
 if __name__ == "__main__":
     main()
