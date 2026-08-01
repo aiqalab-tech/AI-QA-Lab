@@ -13,8 +13,8 @@ class MoneyTransferPage:
 
     def perform_transaction(self):
         self.page.goto("https://parabank.parasoft.com")
-        self.page.fill("#amount", "1000")
-        self.page.click("#transfer")
-        self.page.fill("#otp", "123456")
-        self.page.click("#submit")
+        self.page.get_by_label("Transfer Amount").fill("1000")
+        self.page.get_by_role("button", name="Transfer").click()
+        self.page.get_by_label("OTP").fill("123456")
+        self.page.get_by_role("button", name="Submit").click()
 

@@ -1,3 +1,5 @@
+from src.generators.locator_generator import generate_locator
+
 def generate_playwright_actions(test_steps):
 
     actions = []
@@ -10,15 +12,20 @@ def generate_playwright_actions(test_steps):
             actions.append('self.page.goto("https://parabank.parasoft.com")')
 
         elif "enter transfer amount" in step_lower:
-            actions.append('self.page.fill("#amount", "1000")')
+
+            locator = generate_locator(step)
+            actions.append(f'self.page.{locator}.fill("1000")')
 
         elif "click transfer" in step_lower:
-            actions.append('self.page.click("#transfer")')
+            locator = generate_locator(step)
+            actions.append(f'self.page.{locator}.click()')
 
         elif "enter otp" in step_lower:
-            actions.append('self.page.fill("#otp", "123456")')
+            locator = generate_locator(step)
+            actions.append(f'self.page.{locator}.fill("123456")')
 
         elif "submit" in step_lower:
-            actions.append('self.page.click("#submit")')
+            locator = generate_locator(step)
+            actions.append(f'self.page.{locator}.click()')
 
     return actions
