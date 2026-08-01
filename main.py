@@ -83,7 +83,7 @@ def main():
     # -----------------------------------------
     print("\nGenerating Playwright Automation Assets...")
 
-    page_object_code = generate_page_object(feature)
+    page_object_code = generate_page_object(feature, professional_test_cases[0]["test_steps"])
     test_code = generate_test_file(feature)
 
     page_file = (

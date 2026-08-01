@@ -1,21 +1,32 @@
-def generate_page_object(feature):
+from src.generators.playwright_action_generator import generate_playwright_actions
 
-    class_name = feature.replace(" ", "") + "Page"
+def generate_page_object(feature, test_steps):
 
-    page_code = f"""
+    class_name = feature.replace(" ", "")
 
-from playwright.sync_api import Page
+    actions = generate_playwright_actions(test_steps)
 
-class {class_name}:
+    action_code = ""
+
+    for action in actions:
+        action_code += f"\n        {action}"
+
+
+    page_code = f"""from playwright.sync_api import Page
+
+
+class {class_name}Page:
 
     def __init__(self, page: Page):
         self.page = page
-        
+
+
     def navigate(self):
         self.page.goto("https://parabank.parasoft.com")
-        
-    def perform_transaction(self):
-        pass
+
+
+    def perform_transaction(self):{action_code}
 
 """
+
     return page_code
