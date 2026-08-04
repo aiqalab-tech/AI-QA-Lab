@@ -9,7 +9,7 @@ from src.formatters.test_case_formatter import format_test_case
 from src.generators.feature_file_generator import (generate_feature_file, save_feature_file)
 from src.generators.playwright_generator import generate_page_object
 from src.generators.playwright_test_generator import generate_test_file
-
+from src.runners.playwright_runner import run_playwright_test
 
 def main():
 
@@ -104,6 +104,23 @@ def main():
         file.write(test_code)
 
     print("Playwright files generated successfully.")
+
+    # -----------------------------------------
+    # Execute Generated Playwright Test
+    # -----------------------------------------
+
+    print("\nExecuting Playwright Test...")
+    print("------------------------------")
+
+    result = run_playwright_test("automation/playwright/tests/test_money_transfer.py")
+
+    print("\nExecution Status")
+    print("------------------------------")
+    print(result["status"])
+
+    print("\nExecution Output")
+    print("------------------------------")
+    print(result["output"])
 
 if __name__ == "__main__":
     main()
